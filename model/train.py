@@ -3,6 +3,7 @@ import joblib
 from sklearn.linear_model import PoissonRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
+from sklearn.preprocessing import StandardScaler
 
 # load the csv file dataset
 
@@ -34,13 +35,15 @@ featured_cols = [
 ]
 
 x = df[featured_cols]
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(x)
 y_home = df["home_goals"]
 y_away = df["away_goals"]
 
 # train, test and split
 
 x_train, x_test, y_away_train, y_away_test, y_home_train, y_home_test = train_test_split(
-    x, y_away, y_home, test_size=0.2, random_state=42
+    X_scaled, y_away, y_home, test_size=0.2, random_state=42
 )
 
 # train 2 diffrent poisson models
@@ -68,6 +71,7 @@ print(f"\naway goal mae:{away_mae:.3f}")
 
 joblib.dump(home_model, "model/home_model.joblib")
 joblib.dump(away_model, "model/away_model.joblib")
+joblib.dump(scaler, "model/scaler.joblib")
 joblib.dump(featured_cols, "model/featured_model.joblib")
 
 print("\nModels saved to model/home_model.joblib and model/away_model.joblib")
