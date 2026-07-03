@@ -40,3 +40,10 @@ from backend.fixtures import get_fixtures
 @app.get("/fixtures")
 def fixtures():
     return get_fixtures()
+
+
+from backend.h2h import get_h2h
+
+@app.get("/h2h")
+def h2h(team1 : str, team2 : str):
+    return get_h2h(team1, team2)
