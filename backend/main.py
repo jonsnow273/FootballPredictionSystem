@@ -24,6 +24,8 @@ app.add_middleware(
 def root():
     return{"message":"football prediction api is running"}
 
+# predict.py
+
 @app.get("/predict")
 def predict(home_team: str, away_team: str, is_neutral: int = 0, is_world_cup: int = 0, is_continental: int = 0):
     home_g, away_g, probs = predict_score(home_team, away_team, is_neutral, is_world_cup, is_continental)
@@ -37,12 +39,16 @@ def predict(home_team: str, away_team: str, is_neutral: int = 0, is_world_cup: i
 
 from backend.fixtures import get_fixtures
 
+# fixtures.py
+
 @app.get("/fixtures")
 def fixtures():
     return get_fixtures()
 
 
 from backend.h2h import get_h2h
+
+# h2h.py
 
 @app.get("/h2h")
 def h2h(team1 : str, team2 : str):
