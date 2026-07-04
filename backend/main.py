@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import os 
 import sys
@@ -29,6 +29,11 @@ def root():
 @app.get("/predict")
 def predict(home_team: str, away_team: str, is_neutral: int = 0, is_world_cup: int = 0, is_continental: int = 0):
     home_g, away_g, probs = predict_score(home_team, away_team, is_neutral, is_world_cup, is_continental)
+    try:
+         home_g, away_g, probs = predict_score(home_team, away_team, is_neutral, is_world_cup, is_continental)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
     return{
         "home_team" : home_team,
         "away_team" : away_team,

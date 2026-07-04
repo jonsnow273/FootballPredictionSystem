@@ -1,5 +1,6 @@
 import requests
 from backend.config import API_KEY
+from backend.team_mapping import map_team_name
 
 url = "https://api.football-data.org/v4/matches"
 
@@ -13,8 +14,6 @@ def get_fixtures():
         return {"error": "Failed to fetch fixtures", "status": response.status_code}
     
     data = response.json()
-    print("API status:", response.status_code)
-    print("API response:", data)
 
     fixtures = []
 
@@ -22,8 +21,8 @@ def get_fixtures():
         return {"error": "No matches found", "details": data}
 
     for match in data["matches"]:
-        home_team = match["homeTeam"]["name"]
-        away_team = match["awayTeam"]["name"]
+        home_team = map_team_name(match["homeTeam"]["name"])
+        away_team = map_team_name(match["awayTeam"]["name"])
         date = match["utcDate"]
         competition = match.get("competition", {}).get("code", "N/A")
         fixtures.append({
