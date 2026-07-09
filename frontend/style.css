@@ -1,8 +1,9 @@
+/* ===== Base / theme ===== */
 :root {
   --bg: #121212;
   --card-bg: #1e1e1e;
   --card-border: #2c2c2c;
-  --accent: #3fa34d;      /* pitch green */
+  --accent: #3fa34d;
   --accent-dark: #2d7a39;
   --text-main: #f2f2f2;
   --text-muted: #9a9a9a;
@@ -75,12 +76,6 @@ body {
 #upcoming-fixtures-container,
 #past-fixtures-container {
   padding-bottom: 70px;
-  transition: opacity 0.2s ease;
-}
-
-.tab-content-hidden {
-  opacity: 0;
-  display: none;
 }
 
 .fixtures-card,
@@ -93,29 +88,7 @@ body {
   border-radius: 12px;
   padding: 18px 20px;
   margin-bottom: 14px;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-.fixtures-card:hover,
-.past-fixtures-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-  border-color: var(--accent);
-}
-
-.fixtures-card.show,
-.past-fixtures-card.show {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.fixtures-card.show:hover,
-.past-fixtures-card.show:hover {
-  transform: translateY(-3px);
+  flex-wrap: wrap;
 }
 
 .fixtures-card > img,
@@ -139,18 +112,15 @@ body {
   text-align: center;
 }
 
-.fixtures-card {
-  flex-wrap: wrap;
-}
-
-.fixtures-card img.home-logo {
-  order: 1;
-}
 .fixtures-card span.home-team {
   order: 2;
   flex: 1;
   text-align: left;
   margin-left: 4px;
+}
+
+.fixtures-card img.home-logo {
+  order: 1;
 }
 
 .fixtures-card .btn {
@@ -168,31 +138,6 @@ body {
 .fixtures-card .btn:hover {
   background: var(--accent-dark);
   color: var(--text-main);
-}
-
-.fixtures-card .btn.loading {
-  color: transparent;
-  position: relative;
-  pointer-events: none;
-  background: var(--accent-dark);
-}
-
-.fixtures-card .btn.loading::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 14px;
-  height: 14px;
-  margin: -7px 0 0 -7px;
-  border: 2px solid rgba(0, 0, 0, 0.25);
-  border-top-color: #0d0d0d;
-  border-radius: 50%;
-  animation: btn-spin 0.6s linear infinite;
-}
-
-@keyframes btn-spin {
-  to { transform: rotate(360deg); }
 }
 
 .fixtures-card .away-team {
@@ -237,23 +182,4 @@ body {
 .predicted-score .PredictedScore {
   color: var(--accent);
   font-weight: 700;
-}
-
-.skeleton-card {
-  height: 92px;
-  border-radius: 12px;
-  margin-bottom: 14px;
-  background: linear-gradient(
-    90deg,
-    var(--card-bg) 25%,
-    #2a2a2a 37%,
-    var(--card-bg) 63%
-  );
-  background-size: 400% 100%;
-  animation: skeleton-shimmer 1.4s ease infinite;
-}
-
-@keyframes skeleton-shimmer {
-  0% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
